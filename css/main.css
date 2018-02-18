@@ -1,0 +1,19 @@
+@font-face {
+	font-family: "EnglishTowne";
+	src:url("../fonts/EnglishTowne.ttf");
+}
+
+.container {
+	width:100%;
+}
+
+.meter-container {
+	display: flex;
+	height:100vh;
+	justify-content: center;
+	flex-direction: column;'
+}
+
+.meter {
+	font-size: 26vw;
+}
