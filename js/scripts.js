@@ -4,22 +4,31 @@ $(document).ready(function(){
 	var i = 0;
 
 	var animation_time = 5000; 	// The time it takes for the meter to change value
-
-
 	var el = document.querySelector('.meter');
 
 	od = new Odometer({
 		el: el,
 		value: 2018,
 		minIntegerLen: 4,
+		duration: 10000,
 		format: 'dddd',
 		theme: 'car',
 
 	});
 
+	var backgrounds = new Array(
+		'url(../Jubileumsbakgrund1.svg)',
+		'url(../Jubileumsbakgrund2.svg)',
+		'url(../Jubileumsbakgrund3.svg)'
+	);
+
 	$('body').keydown(function(e) {
-		i++;
 		if(e.keyCode == 32){
+			i++;
+			od.update(years[i]);
+		}
+		if(e.keyCode == 8) {
+			i--;
 			od.update(years[i]);
 		}
 	});

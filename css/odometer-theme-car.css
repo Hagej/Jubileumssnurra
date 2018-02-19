@@ -1,4 +1,5 @@
-/*@import url("//fonts.googleapis.com/css?family=Arimo");*/
+@import url('https://fonts.googleapis.com/css?family=Arimo');
+
 .odometer.odometer-auto-theme, .odometer.odometer-theme-car {
   display: inline-block;
   vertical-align: middle;
@@ -48,11 +49,11 @@
   position: absolute;
 }
 .odometer.odometer-auto-theme.odometer-animating-up .odometer-ribbon-inner, .odometer.odometer-theme-car.odometer-animating-up .odometer-ribbon-inner {
-  -webkit-transition: -webkit-transform 2s;
-  -moz-transition: -moz-transform 2s;
-  -ms-transition: -ms-transform 2s;
-  -o-transition: -o-transform 2s;
-  transition: transform 2s;
+  -webkit-transition: -webkit-transform 10s;
+  -moz-transition: -moz-transform 10s;
+  -ms-transition: -ms-transform 10s;
+  -o-transition: -o-transform 10s;
+  transition: transform 10s;
 }
 .odometer.odometer-auto-theme.odometer-animating-up.odometer-animating .odometer-ribbon-inner, .odometer.odometer-theme-car.odometer-animating-up.odometer-animating .odometer-ribbon-inner {
   -webkit-transform: translateY(-100%);
@@ -69,11 +70,11 @@
   transform: translateY(-100%);
 }
 .odometer.odometer-auto-theme.odometer-animating-down.odometer-animating .odometer-ribbon-inner, .odometer.odometer-theme-car.odometer-animating-down.odometer-animating .odometer-ribbon-inner {
-  -webkit-transition: -webkit-transform 2s;
-  -moz-transition: -moz-transform 2s;
-  -ms-transition: -ms-transform 2s;
-  -o-transition: -o-transform 2s;
-  transition: transform 2s;
+  -webkit-transition: -webkit-transform 10s;
+  -moz-transition: -moz-transform 10s;
+  -ms-transition: -ms-transform 10s;
+  -o-transition: -o-transform 10s;
+  transition: transform 10s;
   -webkit-transform: translateY(0);
   -moz-transform: translateY(0);
   -ms-transform: translateY(0);
@@ -86,8 +87,8 @@
   -webkit-border-radius: 0.34em;
   border-radius: 0.34em;
   font-family: "Arimo", monospace;
-  padding: 0.15em;
-  background: #000;
+  /*padding: 0.15em;
+  background: #000;*/
   color: #eee0d3;
 }
 .odometer.odometer-auto-theme .odometer-digit, .odometer.odometer-theme-car .odometer-digit {

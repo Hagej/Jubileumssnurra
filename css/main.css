@@ -3,17 +3,26 @@
 	src:url("../fonts/EnglishTowne.ttf");
 }
 
+body { 
+	background-image: url('../Jubileumsbakgrund1.svg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	overflow: hidden;
+}
+
 .container {
 	width:100%;
+	display:flex;
+	justify-content: center;
 }
 
 .meter-container {
 	display: flex;
 	height:100vh;
 	justify-content: center;
-	flex-direction: column;'
+	flex-direction: column;
 }
 
 .meter {
-	font-size: 26vw;
+	font-size: 28.5vw;
 }
