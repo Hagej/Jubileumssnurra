@@ -3,26 +3,50 @@
 	src:url("../fonts/EnglishTowne.ttf");
 }
 
-body { 
-	background-image: url('../Jubileumsbakgrund1.svg');
-	background-repeat: no-repeat;
-	background-size: cover;
-	overflow: hidden;
+body {
+  background-color: black;
 }
 
-.container {
-	width:100%;
-	display:flex;
-	justify-content: center;
+
+#meter {
+	font-size: 40vw;
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
 }
 
-.meter-container {
-	display: flex;
-	height:100vh;
-	justify-content: center;
-	flex-direction: column;
+#screensaver {
+  font-size: 20vh;
 }
 
-.meter {
-	font-size: 28.5vw;
+.odometer-inside, #meter, .odometer-inside, .odometer-digit {
+  height: 100%;
+}
+
+.odometer-value {
+  color: #AAFF66;
+  font-weight: 800;
+}
+
+#digit {
+  color: #AAFF66;
+  font-family: Arial;
+  font-weight: 800;
+  text-align: center;
+  font-size: 50vw;
+  height: 100%;
+  width: 100%;
+}
+
+
+.show {
+  position: absolute;
+  top 0;
+  left 0;
+  height: 100%;
+  width: 100%;
+}
+
+video {
+  object-fit: fill;
 }

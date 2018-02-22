@@ -6,19 +6,18 @@ import asyncio as aio
 import websockets
 import serial
 import json
+import serial_asyncio
 
 import sys
 import functools
 
 
-# Serial
-# s = serial.Serial('')
-
 DEVICE = '/dev/cu.usbmodem1421'
 
-# ser = serial.Serial(DEVICE, timeout=1)  # open serial port with 1s timeout
-# print(ser.name)         # check which port was really used
+ser = serial.Serial(DEVICE, timeout=1)  # open serial port with 1s timeout
+print(ser.name)         # check which port was really used
 
+# Test function when not using aruino
 class Prompt:
     def __init__(self, loop=None):
         self.loop = loop or aio.get_event_loop()
@@ -35,23 +34,27 @@ class Prompt:
 prompt = Prompt()
 raw_input = functools.partial(prompt, end='', flush=True)
 
+class Output(aio.Protocol):
+    def connection_made(self, transport):
+        self.transport = transport
+        print('port opened', transport)
+        transport.serial.rts = False  # You can manipulate Serial object via transport
+        transport.write(b'Hello, World!\n')  # Write serial data via transport
+
+    def data_received(self, data):
+        print('data received', repr(data))
+        if b'\n' in data:
+            self.transport.close()
+
+    def connection_lost(self, exc):
+        print('port closed')
+        self.transport.loop.stop()
+
 
 
 # # WebSockets server
 
 connected = set()
-
-# async def handler(websocket, path):
-    # global connected
-    # # Register.
-    # connected.add(websocket)
-    # try:
-        # # Implement logic here.
-        # await aio.wait([ws.send("Hello!") for ws in connected])
-        # await aio.sleep(10)
-    # finally:
-        # # Unregister.
-        # connected.remove(websocket)
 
 async def wshandler(websocket, path):
     global connected
@@ -59,21 +62,20 @@ async def wshandler(websocket, path):
     print(connected)
 
     while True:
-        await prompt("press enter")
-        msg = json.dumps({'action': 'Forward\r\n'})
-        for client in connected:
-            try:
-                await client.send(msg)
-            except websockets.exceptions.ConnectionClosed:
-                pass
-        # pass
-        # websocket.send("Hej")
-        # x = ser.readline()          # read one line
-        # msg = json.dumps({'action': x.decode('ascii')})
-        # if (x != b''):
-            # for ws in connected:
-                # await ws.send(msg)
-            # print(x)
+        # await prompt("press enter")
+        # msg = json.dumps({'action': 'Forward\r\n'})
+        # for client in connected:
+            # try:
+                # await client.send(msg)
+            # except websockets.exceptions.ConnectionClosed:
+                # pass
+        websocket.send("Hej")
+        x = ser.readline()          # read one line
+        msg = json.dumps({'action': x.decode('ascii')})
+        if (x != b''):
+            for ws in connected:
+                await ws.send(msg)
+            print(x)
 
 async def main():
     global connected
@@ -88,20 +90,12 @@ async def main():
 
 start_server = websockets.serve(wshandler, 'localhost', 8765)
 
-aio.ensure_future(start_server)
-aio.get_event_loop().run_until_complete(main())
-# aio.get_event_loop().run_until_complete(start_server)
-print("hellp")
+# coro = serial_asyncio.create_serial_connection(loop, Output, DEVICE,
+        # baudrate=9600)
+# loop.run_until_complete(coro)
+
+# aio.ensure_future(start_server)
+# aio.get_event_loop().run_until_complete(main())
+aio.get_event_loop().run_until_complete(start_server)
 aio.get_event_loop().run_forever()
 
-
-# HTTP server
-# PORT = 8000
-
-# def run(server_class=HTTPServer, handler_class=BaseHTTPRequestHandler):
-    # server_address = ('localhost', 8000)
-    # httpd = server_class(server_address, handler_class)
-    # httpd.serve_forever()
-
-
-# run()
