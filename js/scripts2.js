@@ -117,7 +117,7 @@ function incScene() {
 function decScene() {
   scene -= 1;
 
-  if (scene > 0) {
+  if (scene < 0) {
     scene = scenes.length - 1;
   }
 

@@ -88,8 +88,8 @@ $(document).ready(function(){
   function decScene() {
     scene -= 1;
 
-    if (scene > 0) {
-      scene = scences.length;
+    if (scene < 0) {
+      scene = scenes.length - 1;
     }
 
     (scenes[scene])();
@@ -97,9 +97,9 @@ $(document).ready(function(){
 
   // Server connection
   var c = new WebSocket('ws://localhost:8765');
-  console.log(c);
 
   c.onmessage = function(e) {
+    console.log(e);
     let a = (JSON.parse(e.data)).action;
 
     if (a === "Forward\r\n") {
@@ -108,6 +108,8 @@ $(document).ready(function(){
       decScene();
     }
   }
+
+  console.log(c);
 
 
   //var years = [2018, 7055, 5570, 4368, 7045, 5470, 1980, 1922, 0005, 2018];
