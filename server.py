@@ -32,9 +32,10 @@ print(ser.name)         # check which port was really used
 # prompt = Prompt()
 # raw_input = functools.partial(prompt, end='', flush=True)
 
-async def serInput():
+@aio.coroutine
+def serInput():
     while True:
-        await aio.sleep(0)
+        yield from aio.sleep(0)
         x = ser.readline()          # read one line
         msg = json.dumps({'action': x.decode('ascii')})
         if (x != b''):
@@ -45,17 +46,18 @@ async def serInput():
 
 connected = set()
 
-async def wshandler(websocket, path):
+@aio.coroutine
+def wshandler(websocket, path):
     global connected
     connected.add(websocket)
     print(connected)
 
     while True:
-        msg = await serInput()
+        msg = yield from serInput()
         print(msg)
         for client in connected:
             try:
-                await client.send(msg)
+                yield from client.send(msg)
             except websockets.exceptions.ConnectionClosed:
                 pass
 
