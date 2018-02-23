@@ -35,7 +35,7 @@ $(document).ready(function(){
   //
   // 1989
   // 1922
-  // Ungdommenskälla
+  // Ungdomenskälla
   // 5048
   // 2018
   //
@@ -50,7 +50,7 @@ $(document).ready(function(){
                 , function() { showSSaver(); od.update(1989); }
                 , function() { showDigits(); }
                 , function() { showDigits(); od.update(1922); }
-                , function() { showDigits(); } // Ungdommens
+                , function() { showDigits(); } // Ungdomens
                 , function() { showDigits(); od.update(5048); }
                 , function() { showDigits(); od.update(2018); }
   ];
@@ -99,7 +99,6 @@ $(document).ready(function(){
   var c = new WebSocket('ws://localhost:8765');
 
   c.onmessage = function(e) {
-    console.log(e);
     let a = (JSON.parse(e.data)).action;
 
     if (a === "Forward\r\n") {
