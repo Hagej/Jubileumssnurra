@@ -1,0 +1,6 @@
+[submodule "websockets"]
+	path = websockets
+	url = git@github.com:aaugustin/websockets.git
+[submodule "pyserial"]
+	path = pyserial
+	url = git@github.com:pyserial/pyserial.git
